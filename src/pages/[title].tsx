@@ -23,6 +23,9 @@ export default function Storie({ coupon, thumbnailUrl }) {
         <meta name="twitter:description" content={coupon} />
         <meta name="twitter:image" content={thumbnailUrl} />
       </Head>
+      <a className="down" href={thumbnailUrl} download>
+        Baixar imagem
+      </a>
       <div>
         <img width="450" src={thumbnailUrl} alt={coupon} />
       </div>
