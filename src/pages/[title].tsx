@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 
-export default function Storie({ title: coupon, thumbnailUrl }) {
+export default function Storie({ coupon, thumbnailUrl }) {
   return (
     <main>
       <Head>
