@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const baseUrl = isDev
     ? "http://localhost:3000"
-    : "https://thumbnail-poc-alangabrielbs.vercel.app";
+    : "https://resmed-generator.vercel.app/";
 
   const thumbnailUrl =
     `${baseUrl}/api/thumbnail${mustShowExtension}` +
