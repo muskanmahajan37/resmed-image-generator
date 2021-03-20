@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const mustShowExtension = !isDev ? ".png" : "";
 
   const baseUrl = isDev
-    ? "http://192.168.1.86:3000"
+    ? "http://localhost:3000"
     : "https://thumbnail-poc-alangabrielbs.vercel.app";
 
   const thumbnailUrl =
