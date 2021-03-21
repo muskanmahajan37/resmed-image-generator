@@ -8,6 +8,8 @@ const isDev = !process.env.AWS_REGION;
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const coupon = req.query.coupon ? String(req.query.coupon) : null;
+    const isHtmlDebug = req.query.debug === "true";
+
     const typeImage = req.query.template
       ? String(req.query.template)
       : TypesImages.storie.type;
@@ -20,6 +22,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       coupon,
       typeImage,
     });
+
+    if (isHtmlDebug) {
+      res.setHeader("Content-Type", "text/html");
+      res.end(html);
+
+      return;
+    }
 
     const file = await getScreenshot({
       html,
