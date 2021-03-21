@@ -3,6 +3,7 @@
     {
       "source": "/api/image.png",
       "destination": "/api/image"
-    }
+    },
+    { "source": "/(.+)", "destination": "/api/genarete" }
   ]
 }
