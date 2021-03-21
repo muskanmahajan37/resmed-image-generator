@@ -41,9 +41,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const isDev = process.env.NODE_ENV === "development";
   const mustShowExtension = !isDev ? ".png" : "";
 
-  const baseUrl = isDev
-    ? "http://localhost:3000"
-    : "https://resmed-generator.vercel.app";
+  const baseUrl = isDev ? "http://localhost:3000" : process.env.VERCEL_URL;
 
   const thumbnailUrl = `${baseUrl}/api/image${mustShowExtension}?coupon=${coupon}&template=${template}`;
 
