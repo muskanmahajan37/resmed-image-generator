@@ -1,26 +1,30 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { TypesImages } from "./configs/typesImage";
 import { getScreenshot } from "./_lib/chromiun";
-import getThumbnailTemplate from "./_lib/thumbTemplate";
+import getTemplate from "./_lib/thumbTemplate";
 
 const isDev = !process.env.AWS_REGION;
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const coupon = req.query.coupon ? String(req.query.coupon) : null;
-    // const width = Number(req.query.width) || 1080;
-    // const height = Number(req.query.height) || 1920;
+    const typeImage = req.query.template
+      ? String(req.query.template)
+      : TypesImages.storie.type;
 
     if (!coupon) {
       throw new Error("Coupon is required.");
     }
 
-    const html = getThumbnailTemplate(coupon);
+    const html = getTemplate({
+      coupon,
+      typeImage,
+    });
 
     const file = await getScreenshot({
       html,
       isDev,
-      // width,
-      // height
+      typeImage,
     });
 
     res.statusCode = 200;

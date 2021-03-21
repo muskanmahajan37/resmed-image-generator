@@ -1,4 +1,5 @@
 import puppeteer, { Page } from "puppeteer-core";
+import { TypesImages } from "../configs/typesImage";
 import { getOptions } from "./chromiunOptions";
 
 let _page: Page | null;
@@ -19,19 +20,21 @@ async function getPage(isDev: boolean): Promise<Page> {
 type getScreenshotProps = {
   html: string;
   isDev: boolean;
-  width?: number;
-  height?: number;
+  typeImage: string;
 };
 
 export async function getScreenshot({
   html,
   isDev,
-  width = 1080,
-  height = 1920,
+  typeImage,
 }: getScreenshotProps) {
   const page = await getPage(isDev);
 
-  await page.setViewport({ width, height });
+  await page.setViewport({
+    width: TypesImages[typeImage].sizes.width,
+    height: TypesImages[typeImage].sizes.height,
+  });
+
   await page.setContent(html);
 
   const file = await page.screenshot({ type: "png" });

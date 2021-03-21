@@ -35,19 +35,17 @@ export default function Storie({ coupon, thumbnailUrl }) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const coupon = context.query.title;
-  const width = context.query.width || 1080;
-  const height = context.query.height || 1920;
+
+  const template = context.query.template || "storie";
 
   const isDev = process.env.NODE_ENV === "development";
   const mustShowExtension = !isDev ? ".png" : "";
 
   const baseUrl = isDev
     ? "http://localhost:3000"
-    : "https://resmed-generator.vercel.app/";
+    : "https://resmed-generator.vercel.app";
 
-  const thumbnailUrl =
-    `${baseUrl}/api/thumbnail${mustShowExtension}` +
-    `?coupon=${coupon}&width=${width}&height=${height}`;
+  const thumbnailUrl = `${baseUrl}/api/image${mustShowExtension}?coupon=${coupon}&template=${template}`;
 
   return {
     props: {
