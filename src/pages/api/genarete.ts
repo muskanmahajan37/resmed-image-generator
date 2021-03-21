@@ -54,11 +54,13 @@ export default async function handler(
     );
 
     return res.end(file);
-    return;
-  } catch (e) {
+  } catch (err) {
+    console.log(err);
+
     res.statusCode = 500;
     res.setHeader("Content-Type", "text/html");
-    res.end("<h1>Internal Error</h1><p>Sorry, there was a problem</p>");
-    console.error(e);
+    res.end(
+      `<h1 style="font-family: Arial">Ocorreu um erro.</h1><p style="font-family: Arial">Erro: <b>${err.message}</b></p>`
+    );
   }
 }
