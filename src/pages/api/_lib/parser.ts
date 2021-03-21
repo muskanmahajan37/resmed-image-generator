@@ -1,4 +1,5 @@
 import { IncomingMessage } from "http";
+import { parse } from "url";
 
 export interface ParsedRequest {
   text: string;
@@ -6,7 +7,7 @@ export interface ParsedRequest {
 }
 
 export function parseRequest(req: IncomingMessage) {
-  const { pathname } = new URL(req.url || "/");
+  const { pathname } = parse(req.url || "/");
 
   const arr = (pathname || "/").slice(1).split(".");
   let extension = "";
