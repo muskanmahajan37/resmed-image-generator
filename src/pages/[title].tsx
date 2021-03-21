@@ -2,8 +2,7 @@ import React from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 
-export default function Storie({ coupon, thumbnailUrl, VERCEL_URL }) {
-  console.log({ VERCEL_URL });
+export default function Storie({ coupon, thumbnailUrl }) {
   return (
     <main>
       <Head>
@@ -44,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const baseUrl = isDev
     ? "http://localhost:3000"
-    : `https://${process.env.VERCEL_URL}`;
+    : "https://resmed-generator.vercel.app";
 
   const thumbnailUrl = `${baseUrl}/api/image${mustShowExtension}?coupon=${coupon}&template=${template}`;
 
@@ -52,7 +51,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       coupon,
       thumbnailUrl,
-      VERCEL_URL: process.env.VERCEL_URL,
     },
   };
 };
