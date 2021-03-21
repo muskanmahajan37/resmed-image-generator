@@ -2,12 +2,15 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { TypesImages } from "./configs/typesImage";
 import { getScreenshot } from "./_lib/chromiun";
 import getTemplate from "./_lib/thumbTemplate";
+import { sanitizeHtml } from "./_lib/sanitizer";
 
 const isDev = !process.env.AWS_REGION;
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
-    const coupon = req.query.coupon ? String(req.query.coupon) : null;
+    const coupon = req.query.coupon
+      ? sanitizeHtml(String(req.query.coupon))
+      : null;
     const isHtmlDebug = req.query.debug === "true";
 
     const typeImage = req.query.template
@@ -48,6 +51,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   } catch (err) {
     console.log(err);
 
-    return res.status(500).send(`Error: ${err.message}`);
+    res.statusCode = 500;
+    res.setHeader("Content-Type", "text/html");
+    res.end(
+      `<h1 style="font-family: Arial">Ocorreu um erro.</h1><p style="font-family: Arial">Erro: <b>${err.message}</b></p>`
+    );
   }
 }

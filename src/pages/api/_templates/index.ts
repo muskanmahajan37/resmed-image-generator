@@ -18,7 +18,7 @@ export const getTemplateImages = ({ typeImage, coupon }: GetTemplateImages) => {
     const template = TYPES[typeImage]?.(coupon);
 
     if (!template) {
-      throw new Error("Template not found");
+      throw new Error(`Template "${typeImage}" not found`);
     }
 
     return template;
